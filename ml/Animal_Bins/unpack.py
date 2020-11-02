@@ -38,13 +38,15 @@ def unpack_drawings(filename):
 img = Image.new('RGB', (255, 255), (255, 255, 255))
 draw = ImageDraw.Draw(img)
 cord = []
-for drawing in unpack_drawings('full-binary-butterfly.bin'):
+for drawing in unpack_drawings('full-binary-dog.bin'):
     for x, y in drawing['image']:
         length = len(x)
         for i in range(length):
             cord.append(x[i])
             cord.append(y[i])
         draw.line(cord, fill=(0,0,0), width=3)
+        cord = []
     break
+
 
 img.save('test.jpg', quality=95)
