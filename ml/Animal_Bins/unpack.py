@@ -1,5 +1,6 @@
 import struct
 from struct import unpack
+from PIL import Image, ImageDraw
 
 
 def unpack_drawing(file_handle):
@@ -33,9 +34,17 @@ def unpack_drawings(filename):
             except struct.error:
                 break
 
-i = 0
-for drawing in unpack_drawings('full-binary-ant.bin'):
-    # do something with the drawing
-    i =  i + 1
 
-print(i)
+img = Image.new('RGB', (255, 255), (255, 255, 255))
+draw = ImageDraw.Draw(img)
+cord = []
+for drawing in unpack_drawings('full-binary-butterfly.bin'):
+    for x, y in drawing['image']:
+        length = len(x)
+        for i in range(length):
+            cord.append(x[i])
+            cord.append(y[i])
+        draw.line(cord, fill=(0,0,0), width=3)
+    break
+
+img.save('test.jpg', quality=95)
