@@ -37,16 +37,37 @@ def unpack_drawings(filename):
 
 img = Image.new('RGB', (255, 255), (255, 255, 255))
 draw = ImageDraw.Draw(img)
+inputs = []
+size = 255
+for i in range(size*size):
+    inputs.append(0)
 cord = []
-for drawing in unpack_drawings('full-binary-dog.bin'):
-    for x, y in drawing['image']:
-        length = len(x)
-        for i in range(length):
-            cord.append(x[i])
-            cord.append(y[i])
-        draw.line(cord, fill=(0,0,0), width=3)
-        cord = []
-    break
+# for drawing in unpack_drawings('full-binary-whale.bin'):
+#     for x, y in drawing['image']:
+#         length = len(x)
+#         for i in range(length):
+#             cord.append(x[i])
+#             cord.append(y[i])
+#             address = x[i] + (y[i]*(size-1))
+#             inputs[address - 1] = 1
+#         draw.line(cord, fill=(0,0,0), width=4)
+#         cord = []
+#     break
+cate = input("Enter Category: ")
+val = int(input("Enter drawing #: "))
+drawings = unpack_drawings('full-binary-{}.bin'.format(cate))
 
+for v in range(val):
+    drawing = next(drawings)
 
-img.save('test.jpg', quality=95)
+for x, y in drawing['image']:
+    length = len(x)
+    for i in range(length):
+        cord.append(x[i])
+        cord.append(y[i])
+        address = x[i] + (y[i]*(size-1))
+        inputs[address - 1] = 1
+    draw.line(cord, fill=(0,0,0), width=4)
+    cord = []
+
+img.save('test.jpg', quality=100)
