@@ -9,5 +9,7 @@
     <string name="button_nav_canvas">Canvas</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="string_button_undo">Undo</string>
+    <string name="string_button_submit">Submit</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

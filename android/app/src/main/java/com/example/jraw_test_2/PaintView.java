@@ -57,7 +57,6 @@ public class PaintView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         float pointX = event.getX();
         float pointY = event.getY();
-        System.out.printf("point! (%.1f, %.1f)%n", pointX, pointY);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:

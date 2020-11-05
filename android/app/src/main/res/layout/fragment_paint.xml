@@ -8,17 +8,46 @@
     android:padding="8dp"
     tools:context=".PaintFragment">
 
-
     <com.example.jraw_test_2.PaintView
         android:id="@+id/PaintView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="0dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="0dp"
         android:background="@android:color/transparent">
-
     </com.example.jraw_test_2.PaintView>
+
+    <Button
+        android:id="@+id/undo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/string_button_undo"
+        android:backgroundTint="@color/blue"/>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/string_button_submit"
+        android:backgroundTint="@color/blue"/>
 
 </RelativeLayout>
