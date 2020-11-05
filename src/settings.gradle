@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "SketchApp"
+rootProject.name = "jraw_test_2"
