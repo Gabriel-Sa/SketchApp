@@ -1,5 +1,6 @@
 import struct
 from struct import unpack
+import numpy as np
 from PIL import Image, ImageDraw
 
 
@@ -72,8 +73,7 @@ def get_input(name):
             break
         inputs = [0] * 65025
         for x, y in drawing['image']:
-            length = len(x)
-            for i in range(0, length):
+            for i in range(0, len(x)):
                 cord.append(x[i])
                 cord.append(y[i])
             ret = bresenham(cord)
@@ -86,9 +86,7 @@ def get_input(name):
         it = it + 1
     return retArray
 
-ret = get_input("cat")
-print(len(ret))
-
+if __name__ == '__main__':
 # ------- Drawing Section ---------
 # img = Image.new('RGB', (255, 255), (255, 255, 255))
 # draw = ImageDraw.Draw(img)
