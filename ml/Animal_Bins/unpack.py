@@ -1,5 +1,6 @@
 import struct
 from struct import unpack
+import numpy as np
 from PIL import Image, ImageDraw
 
 
@@ -35,28 +36,33 @@ def unpack_drawings(filename):
                 break
 
 
-img = Image.new('RGB', (255, 255), (255, 255, 255))
-draw = ImageDraw.Draw(img)
-inputs = []
-size = 255
-for i in range(size*size):
-    inputs.append(0)
-cord = []
-# for drawing in unpack_drawings('full-binary-whale.bin'):
-#     for x, y in drawing['image']:
-#         length = len(x)
-#         for i in range(length):
-#             cord.append(x[i])
-#             cord.append(y[i])
-#             address = x[i] + (y[i]*(size-1))
-#             inputs[address - 1] = 1
-#         draw.line(cord, fill=(0,0,0), width=4)
-#         cord = []
-#     break
-cate = input("Enter Category: ")
-val = int(input("Enter drawing #: "))
-drawings = unpack_drawings('full-binary-{}.bin'.format(cate))
+def bresenham(cord):
+    if len(cord) % 2 != 0:
+        raise ValueError("Invalid number of inputs")
+    retArray = []
+    for i in range(0, len(cord) - 2, 2):
+        x1 = cord[i]
+        y1 = cord[i+1]
+        x2 = cord[i+2]
+        y2 = cord[i+3]
+        m = 2 * (y2 - y1)
+        m_error = m - (x2 - x1)
+        y = y1
+        for x in range(x1, x2+1):
+            if x > 0:
+                if x > 254:
+                    x = 254
+                if y > 254:
+                    y = 254
+                retArray.append(x)
+                retArray.append(y)
+            m_error = m_error + m
+            if m_error >= 0:
+                y = y + 1
+                m_error = m_error - (2 * (x2 - x1))
+    return retArray
 
+<<<<<<< HEAD
 for v in range(val):
     drawing = next(drawings)
 
@@ -68,6 +74,49 @@ for x, y in drawing['image']:
         address = x[i] + (y[i]*(size-1))
         inputs[address - 1] = 1
     draw.line(cord, fill=(0,0,0), width=1)
+=======
+def get_input(name):
+    inputs = []
+>>>>>>> 178ca755e349f59eb8ba7cc1dc84d1256f4ef01a
     cord = []
+    retArray = []
+    size = 255
+    it = 0
+    for drawing in unpack_drawings('full-binary-{}.bin'.format(name)):
+        if it > 30000:
+            break
+        inputs = [0] * 65025
+        for x, y in drawing['image']:
+            for i in range(0, len(x)):
+                cord.append(x[i])
+                cord.append(y[i])
+            ret = bresenham(cord)
+            cord = []
+            if len(ret) >= 2:
+                for k in range(0, len(ret) - 2, 2):
+                    address = ret[k] + (ret[k+1] * size)
+                    inputs[address] = 1
+        retArray.append(inputs)
+        it = it + 1
+    return retArray
 
-img.save('test.jpg', quality=100)
+if __name__ == '__main__':
+# ------- Drawing Section ---------
+# img = Image.new('RGB', (255, 255), (255, 255, 255))
+# draw = ImageDraw.Draw(img)
+# cord = []
+# cate = input("Enter Category: ")
+# val = int(input("Enter drawing #: "))
+# drawings = unpack_drawings('full-binary-{}.bin'.format(cate))
+#
+# for v in range(val):
+#     drawing = next(drawings)
+#
+# for x, y in drawing['image']:
+#     length = len(x)
+#     for i in range(length):
+#         cord.append(x[i])
+#         cord.append(y[i])
+#     test = draw.line(cord, fill=(0,0,0), width=1)
+#     cord = []
+# img.save('test.jpg', quality=100)
