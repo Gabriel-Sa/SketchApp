@@ -122,4 +122,3 @@ if __name__ == '__main__':
 #         address = x[i] + (y[i]*(size-1))
 #         inputs[address - 1] = 1
 #     draw.line(cord, fill=(0,0,0), width=1)
-
