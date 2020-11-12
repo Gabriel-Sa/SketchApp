@@ -67,7 +67,7 @@ for x, y in drawing['image']:
         cord.append(y[i])
         address = x[i] + (y[i]*(size-1))
         inputs[address - 1] = 1
-    draw.line(cord, fill=(0,0,0), width=4)
+    draw.line(cord, fill=(0,0,0), width=1)
     cord = []
 
 img.save('test.jpg', quality=100)
