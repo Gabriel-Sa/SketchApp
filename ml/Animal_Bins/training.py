@@ -75,7 +75,7 @@ classes = ['bat', 'bear', 'butterfly','camel','cow', 'crab', 'crocodile', 'dolph
 'teddy-bear','tiger','zebra','dog', 'cat', 'ant', 'whale', 'horse',
            'bee', 'bird', 'dragon', 'flamingo', 'duck']
 
-total_training_iterations = 10
+total_training_iterations = 50
 
 #create_drawings(classes)
 drawings = []
@@ -86,9 +86,9 @@ drawing = drawings[0]
 
 # go thru first 1000 of each drawing...
 
-for y in range(10):
-    for c in range(5000):
-        drawing = next(drawings[y])
+#for y in range(10):
+#    for c in range(5000):
+#        drawing = next(drawings[y])
 
 
 # Outerloop. How many times will we train?
@@ -96,7 +96,7 @@ for z in range(total_training_iterations):
     print('recreating drawing jpg...')
     l = 0
     for cate in classes:
-        for v in range(2000):
+        for v in range(1000):
             img = Image.new('RGB', (255, 255), (255, 255, 255))
             draw = ImageDraw.Draw(img)
             inputs = []

@@ -12,7 +12,7 @@ import struct
 from struct import unpack
 from PIL import Image, ImageDraw
 
-#from tensorflow.keras.layers.experimental import RandomFourierFeatures 
+#from tensorflow.keras.layers.experimental import RandomFourierFeatures
 
 gpus = tf.config.experimental.list_physical_devices('GPU')
 if gpus:
@@ -26,7 +26,12 @@ if gpus:
     # Memory growth must be set before GPUs have been initialized
     print(e)
 
-class_names = ['ant', 'bee', 'bird', 'cat', 'dog', 'dragon', 'duck', 'flamingo', 'horse', 'whale']    
+class_names = ['bat', 'bear', 'butterfly','camel','cow', 'crab', 'crocodile', 'dolphin',
+'elephant','fish','frog','giraffe','hedgehog','kangaroo','lion','lobster',
+'mermaid','monkey','mouse','octopus','owl','panda','parrot','penguin','rabbit','raccoon',
+'rhinoceros','scorpion','shark','sheep','snail','snake','snowman','spider','squirrel','swan',
+'teddy-bear','tiger','zebra','dog', 'cat', 'ant', 'whale', 'horse',
+           'bee', 'bird', 'dragon', 'flamingo', 'duck']    
 
 model = keras.models.load_model('test_model.h5')
 
