@@ -62,8 +62,22 @@ def bresenham(cord):
                 m_error = m_error - (2 * (x2 - x1))
     return retArray
 
+#<<<<<<< HEAD
+for v in range(val):
+    drawing = next(drawings)
+
+for x, y in drawing['image']:
+    length = len(x)
+    for i in range(length):
+        cord.append(x[i])
+        cord.append(y[i])
+        address = x[i] + (y[i]*(size-1))
+        inputs[address - 1] = 1
+    draw.line(cord, fill=(0,0,0), width=1)
+#=======
 def get_input(name):
     inputs = []
+#>>>>>>> 178ca755e349f59eb8ba7cc1dc84d1256f4ef01a
     cord = []
     retArray = []
     size = 255
@@ -106,3 +120,5 @@ if __name__ == '__main__':
 #     test = draw.line(cord, fill=(0,0,0), width=1)
 #     cord = []
 # img.save('test.jpg', quality=100)
+
+
