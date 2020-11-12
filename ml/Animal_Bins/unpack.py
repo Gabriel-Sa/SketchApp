@@ -41,6 +41,7 @@ def bresenham(cord):
         raise ValueError("Invalid number of inputs")
     retArray = []
     for i in range(0, len(cord) - 2, 2):
+        # [x1, y1, x2, y2, x3, y3, x4, y4]
         x1 = cord[i]
         y1 = cord[i+1]
         x2 = cord[i+2]
@@ -62,22 +63,11 @@ def bresenham(cord):
                 m_error = m_error - (2 * (x2 - x1))
     return retArray
 
-#<<<<<<< HEAD
 for v in range(val):
     drawing = next(drawings)
 
-for x, y in drawing['image']:
-    length = len(x)
-    for i in range(length):
-        cord.append(x[i])
-        cord.append(y[i])
-        address = x[i] + (y[i]*(size-1))
-        inputs[address - 1] = 1
-    draw.line(cord, fill=(0,0,0), width=1)
-#=======
 def get_input(name):
     inputs = []
-#>>>>>>> 178ca755e349f59eb8ba7cc1dc84d1256f4ef01a
     cord = []
     retArray = []
     size = 255
@@ -101,6 +91,10 @@ def get_input(name):
     return retArray
 
 if __name__ == '__main__':
+    print(len(get_input("cat"))
+
+
+
 # ------- Drawing Section ---------
 # img = Image.new('RGB', (255, 255), (255, 255, 255))
 # draw = ImageDraw.Draw(img)
@@ -120,5 +114,12 @@ if __name__ == '__main__':
 #     test = draw.line(cord, fill=(0,0,0), width=1)
 #     cord = []
 # img.save('test.jpg', quality=100)
-
+# for x, y in drawing['image']:
+#     length = len(x)
+#     for i in range(length):
+#         cord.append(x[i])
+#         cord.append(y[i])
+#         address = x[i] + (y[i]*(size-1))
+#         inputs[address - 1] = 1
+#     draw.line(cord, fill=(0,0,0), width=1)
 
