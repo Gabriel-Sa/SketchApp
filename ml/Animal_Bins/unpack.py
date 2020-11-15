@@ -35,33 +35,33 @@ def unpack_drawings(filename):
             except struct.error:
                 break
 
-
 def bresenham(cord):
-    if len(cord) % 2 != 0:
-        raise ValueError("Invalid number of inputs")
-    retArray = []
-    for i in range(0, len(cord) - 2, 2):
-        # [x1, y1, x2, y2, x3, y3, x4, y4]
-        x1 = cord[i]
-        y1 = cord[i+1]
-        x2 = cord[i+2]
-        y2 = cord[i+3]
-        m = 2 * (y2 - y1)
-        m_error = m - (x2 - x1)
-        y = y1
-        for x in range(x1, x2+1):
-            if x > 0:
-                if x > 254:
-                    x = 254
-                if y > 254:
-                    y = 254
-                retArray.append(x)
-                retArray.append(y)
-            m_error = m_error + m
-            if m_error >= 0:
-                y = y + 1
-                m_error = m_error - (2 * (x2 - x1))
-    return retArray
+ if len(cord) % 2 != 0:
+     raise ValueError("Invalid number of inputs")
+ retArray = []
+ for i in range(0, len(cord) - 2, 2):
+     # [x1, y1, x2, y2, x3, y3, x4, y4]
+     x1 = cord[i]
+     y1 = cord[i+1]
+     x2 = cord[i+2]
+     y2 = cord[i+3]
+     m = 2 * (y2 - y1)
+     m_error = m - (x2 - x1)
+     y = y1
+     for x in range(x1, x2+1):
+         if x > 0:
+             if x > 254:
+                 x = 254
+             if y > 254:
+                 y = 254
+             retArray.append(x)
+             retArray.append(y)
+         m_error = m_error + m
+         if m_error >= 0:
+             y = y + 1
+             m_error = m_error - (2 * (x2 - x1))
+ return retArray
+
 
 def get_input(name):
     inputs = []
@@ -114,4 +114,4 @@ def get_input(name):
 #         address = x[i] + (y[i]*(size-1))
 #         inputs[address - 1] = 1
 #     draw.line(cord, fill=(0,0,0), width=1)
-print(len(get_input("cat")))
+print(get_input("cat"))
