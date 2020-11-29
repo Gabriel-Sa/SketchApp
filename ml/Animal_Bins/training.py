@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import shutil
+from threading import Thread
+import time
 import PIL
 import tensorflow as tf
 
@@ -54,6 +57,27 @@ def unpack_drawings(filename):
             except struct.error:
                 break
 
+def create_drawings(cate, drawings):
+    for v in range(2000):
+        img = Image.new('RGB', (255, 255), (255, 255, 255))
+        draw = ImageDraw.Draw(img)
+        inputs = []
+        size = 255
+        for i in range(size*size):
+            inputs.append(0)
+        cord = []
+        drawing = next(drawings)
+        for x, y in drawing['image']:
+            length = len(x)
+            for i in range(length):
+                cord.append(x[i])
+                cord.append(y[i])
+                address = x[i] + (y[i]*(size-1))
+                inputs[address - 1] = 1
+            draw.line(cord, fill=(0,0,0), width=6)
+            cord = []
+        img.save('jpg/{}/test-{}.jpg'.format(cate, v), quality=100)
+
 # Init gpu for training
 gpus = tf.config.experimental.list_physical_devices('GPU')
 if gpus:
@@ -68,21 +92,27 @@ if gpus:
    print(e)
 
 # classes
-classes = ['bat', 'bear', 'butterfly','camel','cow', 'crab', 'crocodile', 'dolphin',
-'elephant','fish','frog','giraffe','hedgehog','kangaroo','lion','lobster',
-'mermaid','monkey','mouse','octopus','owl','panda','parrot','penguin','rabbit','raccoon',
-'rhinoceros','scorpion','shark','sheep','snail','snake','snowman','spider','squirrel','swan',
-'teddy-bear','tiger','zebra','dog', 'cat', 'ant', 'whale', 'horse',
-           'bee', 'bird', 'dragon', 'flamingo', 'duck']
+classes = ['bear','cow', 'dolphin',
+'elephant','fish','frog','mouse','penguin','rabbit','sheep',
+'snake','dog', 'cat', 'whale', 'horse',
+           'bee', 'bird', 'duck']
 
 total_training_iterations = 50
 
 #create_drawings(classes)
+
+try:
+    shutil.rmtree('jpg')
+    os.mkdir('jpg')
+except OSError as e:
+    print("Error: %s : %s" % ('jpg', e.strerror))
+    os.mkdir('jpg')
+
 drawings = []
 for cate in classes:
     drawings.append(unpack_drawings('full-binary-{}.bin'.format(cate)))
+    os.mkdir('jpg/{}'.format(cate))
 
-drawing = drawings[0]
 
 # go thru first 1000 of each drawing...
 
@@ -90,37 +120,25 @@ drawing = drawings[0]
 #    for c in range(5000):
 #        drawing = next(drawings[y])
 
+model = None
 
 # Outerloop. How many times will we train?
 for z in range(total_training_iterations):
     print('recreating drawing jpg...')
-    l = 0
-    for cate in classes:
-        for v in range(1000):
-            img = Image.new('RGB', (255, 255), (255, 255, 255))
-            draw = ImageDraw.Draw(img)
-            inputs = []
-            size = 255
-            for i in range(size*size):
-                inputs.append(0)
-            cord = []
-            drawing = next(drawings[l])
-            for x, y in drawing['image']:
-                length = len(x)
-                for i in range(length):
-                    cord.append(x[i])
-                    cord.append(y[i])
-                    address = x[i] + (y[i]*(size-1))
-                    inputs[address - 1] = 1
-                draw.line(cord, fill=(0,0,0), width=4)
-                cord = []
-            img.save('jpg/{}/test-{}.jpg'.format(cate, v), quality=100)
-        l = l + 1
+    threads = []
+    for j in range(len(drawings)):
+        t = Thread(target=create_drawings, args=(classes[j],drawings[j]))
+        t.start()
+        threads.append(t)
+    for t in threads:
+        t.join()
 
     data_dir = 'jpg'
     batch_size = 32
     img_height = 255
     img_width = 255
+
+    num_classes = len(classes)
 
     train_ds = tf.keras.preprocessing.image_dataset_from_directory(
       data_dir,
@@ -138,17 +156,43 @@ for z in range(total_training_iterations):
         image_size=(img_height, img_width),
         batch_size=batch_size)
 
+    data_augmentation = keras.Sequential(
+      [
+        layers.experimental.preprocessing.RandomFlip("horizontal",
+                                                     input_shape=(img_height,
+                                                                  img_width,
+                                                                  3)),
+        layers.experimental.preprocessing.RandomRotation(0.1),
+        layers.experimental.preprocessing.RandomZoom(0.1),
+      ]
+    )
+
     class_names = train_ds.class_names
     print(class_names)
 
     AUTOTUNE = tf.data.experimental.AUTOTUNE
 
-    train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
+    train_ds = train_ds.cache().shuffle(200).prefetch(buffer_size=AUTOTUNE)
     val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
-    model = tf.keras.models.load_model('test_model.h5')
-
-    num_classes = len(classes)
+    if model is None:
+        model = Sequential([
+          data_augmentation,
+          layers.experimental.preprocessing.Rescaling(1./255),
+          layers.Conv2D(16, 3, padding='same', activation='relu'),
+          layers.MaxPooling2D(),
+          layers.Conv2D(32, 3, padding='same', activation='relu'),
+          layers.MaxPooling2D(),
+          layers.Conv2D(64, 3, padding='same', activation='relu'),
+          layers.MaxPooling2D(),
+          layers.Dropout(0.2),
+          layers.Flatten(),
+          layers.Dense(128, activation='relu'),
+          layers.Dense(num_classes)
+        ])
+        model.compile(optimizer='adam',
+                      loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+                      metrics=['accuracy'])
 
     epochs=10
     history = model.fit(
@@ -157,7 +201,7 @@ for z in range(total_training_iterations):
       epochs=epochs
     )
 
-    model.save('test_model.h5');
+    model.save('model.h5');
 
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']

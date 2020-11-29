@@ -31,9 +31,9 @@ class_names = ['bat', 'bear', 'butterfly','camel','cow', 'crab', 'crocodile', 'd
 'mermaid','monkey','mouse','octopus','owl','panda','parrot','penguin','rabbit','raccoon',
 'rhinoceros','scorpion','shark','sheep','snail','snake','snowman','spider','squirrel','swan',
 'teddy-bear','tiger','zebra','dog', 'cat', 'ant', 'whale', 'horse',
-           'bee', 'bird', 'dragon', 'flamingo', 'duck']    
+           'bee', 'bird', 'dragon', 'flamingo', 'duck']
 
-model = keras.models.load_model('test_model.h5')
+model = keras.models.load_model('model.h5')
 
 img = keras.preprocessing.image.load_img(
     'test.jpg', target_size=(255, 255)
