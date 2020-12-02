@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".PaintFragment">
+
+    <com.example.jraw_test_2.PaintView
+        android:id="@+id/PaintView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:background="@drawable/paintview_background" />
+
+    <TableRow
+        android:id="@+id/button_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/PaintView"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/clear_button"
+            style="?android:attr/buttonBarButtonStyle"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
+            android:text="@string/button_pv_clear" />
+
+        <Button
+            android:id="@+id/undo_button"
+            style="?android:attr/buttonBarButtonStyle"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
+            android:text="@string/button_pv_undo" />
+
+        <Button
+            android:id="@+id/upload_button"
+            style="?android:attr/buttonBarButtonStyle"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
+            android:text="@string/button_pv_upload" />
+
+    </TableRow>
+
+</RelativeLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground">
+
+    <FrameLayout
+        android:id="@+id/f_image"
+        android:layout_width="match_parent"
+        android:layout_height="387dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" >
+
+    </FrameLayout>
+    <TextView
+        android:id="@+id/imageSeparator"
+        android:layout_height="40dp"
+        android:layout_below="@+id/f_image"
+        android:layout_width="match_parent"
+        android:background="@color/cardview_dark_background"
+        android:textColor="@color/white"
+        android:gravity="center|left"
+        android:paddingLeft="5dp"
+        android:text="Comments"
+        android:textSize="17sp"/>
+
+
+    <FrameLayout
+        android:id="@+id/f_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/commentNestView"
+        android:layout_marginBottom="0dp">
+    </FrameLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/commentNestView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_below="@+id/imageSeparator">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:inputType="text"
+            android:textCursorDrawable="@null"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColorHighlight="@color/colorPrimary"
+            android:hint="Add Comment"
+            android:id="@+id/newComment"/>
+
+
+</androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

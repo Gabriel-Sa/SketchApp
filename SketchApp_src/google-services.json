@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "105663270575",
+    "firebase_url": "https://jrawtest.firebaseio.com",
+    "project_id": "jrawtest",
+    "storage_bucket": "jrawtest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105663270575:android:21f38b4c3f0b4d3b318e5a",
+        "android_client_info": {
+          "package_name": "com.example.jraw_test_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105663270575-62lpf7m8sf5chdum8f71411j53clu493.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0nYQN38UwP0eXTgfl_ch8K_Jo1bn35A4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105663270575-62lpf7m8sf5chdum8f71411j53clu493.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
