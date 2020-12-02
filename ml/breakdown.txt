@@ -1,0 +1,13 @@
+Okay, so we need to make
+
+A classifier to put images into classes
+	We can use transfer learning
+
+Need to train/retrain model
+Best configuration of model is one we save
+
+It will be saved as .H5 or .HDF5 file
+	For android, we will be using tensorflow lite
+	So, we need to convert to .tflite
+
+
