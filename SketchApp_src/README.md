@@ -8,3 +8,7 @@ If Google-Services.json is not in the project folder, further assistance can be 
 https://support.google.com/firebase/answer/7015592?hl=en
 
 
+Naming conventions for the src code is off, but that is due to the group working on different parts of the app. Luke created Jraw_test_2 github for his testing of the reddit scrapper, but we ended up just using his inital project to finish the entire app. 
+
+Todo: 
+• Refactor Code to meet naming conventions. 
